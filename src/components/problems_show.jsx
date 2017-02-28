@@ -25,8 +25,8 @@ class ProblemsShow extends Component {
       <div>
         <h3>{title}</h3>
         <p>{content}</p>
-        <Link to={`problems/${id}/submit`} className="btn btn-primary btn-submit">
-          Submit Your Code
+        <Link to={`/problems/${id}/submit`} className="btn btn-primary btn-submit">
+          Submit Solution
         </Link>
         <Link to="/problems" className="btn btn-danger">Go Back</Link>
       </div>

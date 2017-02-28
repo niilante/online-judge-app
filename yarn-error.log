@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add redux-thunk@2.1.0
+  /usr/local/bin/node /usr/local/bin/yarn add querystring axios
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Applications/Server.app/Contents/ServerRoot/usr/bin:/Applications/Server.app/Contents/ServerRoot/usr/sbin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/macbook/mongo/bin:/Users/macbook/Library/Android/sdk/tools:/Users/macbook/Library/Android/sdk/platform-tools
@@ -42,15 +42,22 @@ npm manifest:
       "webpack-dev-server": "^1.14.0"
     },
     "dependencies": {
+      "babel-polyfill": "^6.23.0",
       "babel-preset-stage-1": "^6.1.18",
+      "cls-bluebird": "^2.0.1",
       "firebase": "3.0.2",
+      "fs": "^0.0.1-security",
+      "hackerearth-node": "^2.3.9",
       "lodash": "^3.10.1",
+      "net": "^1.0.2",
       "react": "^0.14.3",
       "react-dom": "^0.14.3",
       "react-redux": "^4.0.0",
       "react-router": "^2.0.1",
       "redux": "^3.0.4",
-      "redux-form": "4.1.3"
+      "redux-form": "4.1.3",
+      "redux-thunk": "2.1.0",
+      "tls": "^0.0.1"
     }
   }
 
@@ -735,6 +742,14 @@ Lockfile:
       babel-runtime "^6.22.0"
       babel-types "^6.22.0"
   
+  babel-polyfill@^6.23.0:
+    version "6.23.0"
+    resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.23.0.tgz#8364ca62df8eafb830499f699177466c3b03499d"
+    dependencies:
+      babel-runtime "^6.22.0"
+      core-js "^2.4.0"
+      regenerator-runtime "^0.10.0"
+  
   babel-preset-es2015@^6.1.18:
     version "6.22.0"
     resolved "https://registry.yarnpkg.com/babel-preset-es2015/-/babel-preset-es2015-6.22.0.tgz#af5a98ecb35eb8af764ad8a5a05eb36dc4386835"
@@ -904,6 +919,10 @@ Lockfile:
     dependencies:
       inherits "~2.0.0"
   
+  bluebird@^3.3:
+    version "3.4.7"
+    resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.4.7.tgz#f72d760be09b7f76d08ed8fae98b289a8d05fab3"
+  
   boom@2.x.x:
     version "2.10.1"
     resolved "https://registry.yarnpkg.com/boom/-/boom-2.10.1.tgz#39c8918ceff5799f83f9492a848f625add0c766f"
@@ -1024,6 +1043,13 @@ Lockfile:
   clone@^1.0.2:
     version "1.0.2"
     resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.2.tgz#260b7a99ebb1edfe247538175f783243cb19d149"
+  
+  cls-bluebird@^2.0.1:
+    version "2.0.1"
+    resolved "https://registry.yarnpkg.com/cls-bluebird/-/cls-bluebird-2.0.1.tgz#c259a480ae02c0e506134307bb13db30446ee2e7"
+    dependencies:
+      is-bluebird "^1.0.2"
+      shimmer "^1.1.0"
   
   code-point-at@^1.0.0:
     version "1.1.0"
@@ -1525,6 +1551,10 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   
+  fs@^0.0.1-security:
+    version "0.0.1-security"
+    resolved "https://registry.yarnpkg.com/fs/-/fs-0.0.1-security.tgz#8a7bd37186b6dddf3813f23858b57ecaaf5e41d4"
+  
   fsevents@^1.0.0:
     version "1.1.1"
     resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.1.1.tgz#f19fd28f43eeaf761680e519a203c4d0b3d31aff"
@@ -1634,6 +1664,13 @@ Lockfile:
   growl@1.9.2:
     version "1.9.2"
     resolved "https://registry.yarnpkg.com/growl/-/growl-1.9.2.tgz#0ea7743715db8d8de2c5ede1775e1b45ac85c02f"
+  
+  hackerearth-node@^2.3.9:
+    version "2.3.9"
+    resolved "https://registry.yarnpkg.com/hackerearth-node/-/hackerearth-node-2.3.9.tgz#31ced5cf300c11a9303ef423e8094e03e8e0a730"
+    dependencies:
+      debug "^2.2.0"
+      request-promise "^3.0.0"
   
   har-validator@~2.0.6:
     version "2.0.6"
@@ -1777,6 +1814,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/is-binary-path/-/is-binary-path-1.0.1.tgz#75f16642b480f187a711c814161fd3a4a7655898"
     dependencies:
       binary-extensions "^1.0.0"
+  
+  is-bluebird@^1.0.2:
+    version "1.0.2"
+    resolved "https://registry.yarnpkg.com/is-bluebird/-/is-bluebird-1.0.2.tgz#096439060f4aa411abee19143a84d6a55346d6e2"
   
   is-buffer@^1.0.2:
     version "1.1.4"
@@ -2029,7 +2070,7 @@ Lockfile:
     version "3.10.1"
     resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
   
-  lodash@^4.17.2, lodash@^4.2.0, lodash@^4.2.1:
+  lodash@^4.17.2, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.6.1:
     version "4.17.4"
     resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
   
@@ -2170,6 +2211,10 @@ Lockfile:
   negotiator@0.6.1:
     version "0.6.1"
     resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
+  
+  net@^1.0.2:
+    version "1.0.2"
+    resolved "https://registry.yarnpkg.com/net/-/net-1.0.2.tgz#d1757ec9a7fb2371d83cf4755ce3e27e10829388"
   
   node-libs-browser@^0.7.0:
     version "0.7.0"
@@ -2566,6 +2611,10 @@ Lockfile:
       is-promise "^2.1.0"
       react-lazy-cache "^3.0.1"
   
+  redux-thunk@2.1.0:
+    version "2.1.0"
+    resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.1.0.tgz#c724bfee75dbe352da2e3ba9bc14302badd89a98"
+  
   redux@^3.0.4:
     version "3.6.0"
     resolved "https://registry.yarnpkg.com/redux/-/redux-3.6.0.tgz#887c2b3d0b9bd86eca2be70571c27654c19e188d"
@@ -2630,7 +2679,15 @@ Lockfile:
     dependencies:
       is-finite "^1.0.0"
   
-  request@^2.55.0, request@^2.79.0:
+  request-promise@^3.0.0:
+    version "3.0.0"
+    resolved "https://registry.yarnpkg.com/request-promise/-/request-promise-3.0.0.tgz#be1edb26f41c49cd1d5656c6753d6842a1249f46"
+    dependencies:
+      bluebird "^3.3"
+      lodash "^4.6.1"
+      request "^2.34"
+  
+  request@^2.34, request@^2.55.0, request@^2.79.0:
     version "2.79.0"
     resolved "https://registry.yarnpkg.com/request/-/request-2.79.0.tgz#4dfe5bf6be8b8cdc37fcf93e04b65577722710de"
     dependencies:
@@ -2745,6 +2802,10 @@ Lockfile:
   sha.js@2.2.6:
     version "2.2.6"
     resolved "https://registry.yarnpkg.com/sha.js/-/sha.js-2.2.6.tgz#17ddeddc5f722fb66501658895461977867315ba"
+  
+  shimmer@^1.1.0:
+    version "1.1.0"
+    resolved "https://registry.yarnpkg.com/shimmer/-/shimmer-1.1.0.tgz#97d7377137ffbbab425522e429fe0aa89a488b35"
   
   sigmund@~1.0.0:
     version "1.0.1"
@@ -2934,6 +2995,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-2.0.2.tgz#ab4883cf597dcd50af211349a00fbca56ac86b86"
     dependencies:
       setimmediate "^1.0.4"
+  
+  tls@^0.0.1:
+    version "0.0.1"
+    resolved "https://registry.yarnpkg.com/tls/-/tls-0.0.1.tgz#0ab2bf5968d71df2f8c0e1515d24a2240b98aac8"
   
   to-arraybuffer@^1.0.0:
     version "1.0.1"
@@ -3221,5 +3286,5 @@ Lockfile:
       window-size "0.1.0"
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/Users/macbook/Projects/online-judge/node_modules/.bin/_mocha'
+  Error: EACCES: permission denied, open '/Users/macbook/Library/Caches/Yarn/npm-array-unique-0.2.1-a1d97ccafcbc2625cc70fadceb36a50c58b01a53/package.json'
       at Error (native)

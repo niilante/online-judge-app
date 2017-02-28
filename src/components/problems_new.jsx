@@ -17,7 +17,7 @@ class ProblemsNew extends Component {
   }
 
   render() {
-    const { fields: { title, content }, handleSubmit } = this.props;
+    const { fields: { title, content, test_input, test_output }, handleSubmit } = this.props;
 
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
@@ -39,6 +39,22 @@ class ProblemsNew extends Component {
           </div>
         </div>
 
+        <div className={`form-group ${test_input.touched && test_input.invalid ? 'has-danger' : ''}`}>
+          <label>Input value</label>
+          <input type="text" className="form-control" {...test_input} />
+          <div className="text-help">
+            {test_input.touched ? test_input.error : ''}
+          </div>
+        </div>
+
+        <div className={`form-group ${test_output.touched && test_output.invalid ? 'has-danger' : ''}`}>
+          <label>Output value</label>
+          <input type="text" className="form-control" {...test_output} />
+          <div className="text-help">
+            {test_output.touched ? test_output.error : ''}
+          </div>
+        </div>
+
         <button type="submit" className="btn btn-primary btn-submit">Submit</button>
         <Link to="/problems" className="btn btn-danger">Cancel</Link>
       </form>
@@ -57,11 +73,19 @@ function validate(values) {
     errors.content = 'Enter content';
   }
 
+  if (!values.test_input) {
+    errors.test_input = 'Enter test input';
+  }
+
+  if (!values.test_output) {
+    errors.test_output = 'Enter test output';
+  }
+
   return errors;
 }
 
 export default reduxForm({
   form: 'ProblemsNewForm',
-  fields: ['title', 'content'],
+  fields: [ 'title', 'content', 'test_input', 'test_output' ],
   validate
 }, null, { createProblem })(ProblemsNew);

@@ -1,6 +1,7 @@
 const INITIAL_STATE = {
   all: [],
-  problem: null
+  problem: null,
+  solution: false
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -10,8 +11,9 @@ export default function (state = INITIAL_STATE, action) {
     case 'ADD_PROBLEM':
       return { ...state, problem: action.problem };
     case 'REMOVE_PROBLEM':
-      console.log('remove prob');
       return { ...state, problem: null };
+    case 'CHECK_SOLUTION':
+      return { ...state, solution: action.equal };
     default:
       return state;
   }

@@ -11,9 +11,9 @@ class Nav extends Component {
             <nav>
               <ul className="nav masthead-nav">
                 <li activeClassName="active"><Link to="/">Home</Link></li>
-                <li activeClassName="active"><Link to="problems">Problems</Link></li>
-                <li activeClassName="active"><Link to="ranking">Ranking</Link></li>
-                <li activeClassName="active"><Link to="about">About</Link></li>
+                <li activeClassName="active"><Link to="/problems">Problems</Link></li>
+                <li activeClassName="active"><Link to="/ranking">Ranking</Link></li>
+                <li activeClassName="active"><Link to="/about">About</Link></li>
               </ul>
             </nav>
           </div>
