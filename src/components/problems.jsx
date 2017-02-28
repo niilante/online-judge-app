@@ -17,10 +17,12 @@ class Problems extends Component {
 
     return this.props.problems.map((problem) => {
       return (
-        <button key={problem.id} className="list-group-item">
-          <span className="badge">69</span>
-          {problem.title}
-        </button>
+        <Link key={problem.id} to={`problems/${problem.id}`}>
+           <button key={problem.id} className="list-group-item">
+               <span className="badge">69</span>
+               {problem.title}
+           </button>
+        </Link>
       )
     });
   }
@@ -29,9 +31,9 @@ class Problems extends Component {
     return (
       <div>
         <h3>Problems</h3>
-        <div className="list-group">
+        <ul className="list-group">
           {this.renderProblems()}
-        </div>
+        </ul>
         <div className="text-xs-right">
           <Link to="/problems/new" className="btn btn-primary">
             Create New Problem

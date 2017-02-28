@@ -7,6 +7,7 @@ import Ranking from './components/ranking';
 import About from './components/about';
 import Welcome from './components/welcome';
 import ProblemsNew from './components/problems_new';
+import ProblemsShow from './components/problems_show';
 
 export default (
   <Route path="/" component={App}>
@@ -15,5 +16,6 @@ export default (
     <Route path="ranking" component={Ranking} />
     <Route path="about" component={About} />
     <Route path="problems/new" component={ProblemsNew} />
+    <Route path="problems/:id" component={ProblemsShow} />
   </Route>
 );

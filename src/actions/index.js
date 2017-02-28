@@ -50,3 +50,21 @@ export function fetchProblems() {
     });
   };
 }
+
+export function fetchProblem(id) {
+  return (dispatch, getState) => {
+    var problemRef = firebaseRef.child(`/problems/${id}`);
+
+    return problemRef.once('value').then((snapshot) => {
+      var problem = snapshot.val();
+
+      var parsedProblem = {};
+
+      parsedProblem.id = id;
+      parsedProblem.title = problem.title;
+      parsedProblem.content = problem.content;
+      
+      dispatch(addProblem(parsedProblem));
+    });
+  };
+}
