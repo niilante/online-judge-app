@@ -63,8 +63,14 @@ export function fetchProblem(id) {
       parsedProblem.id = id;
       parsedProblem.title = problem.title;
       parsedProblem.content = problem.content;
-      
+
       dispatch(addProblem(parsedProblem));
     });
   };
+}
+
+export var removeProblem = () => {
+  return {
+    type: 'REMOVE_PROBLEM'
+  }
 }
