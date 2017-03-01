@@ -13,7 +13,7 @@ class Nav extends Component {
                 <li activeClassName="active"><Link to="/">Home</Link></li>
                 <li activeClassName="active"><Link to="/problems">Problems</Link></li>
                 <li activeClassName="active"><Link to="/ranking">Ranking</Link></li>
-                <li activeClassName="active"><Link to="/about">About</Link></li>
+                <li activeClassName="active"><Link to="/status">Status</Link></li>
               </ul>
             </nav>
           </div>

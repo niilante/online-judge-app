@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { fetchProblems } from '../actions/index';
+import { fetchProblems } from './../actions/index';
 
 class Problems extends Component {
   componentWillMount() {
@@ -18,7 +18,7 @@ class Problems extends Component {
     return this.props.problems.map((problem) => {
       return (
         <Link key={problem.id} to={`problems/${problem.id}`}>
-           <button key={problem.id} className="list-group-item">
+           <button className="list-group-item">
                <span className="badge">69</span>
                {problem.title}
            </button>

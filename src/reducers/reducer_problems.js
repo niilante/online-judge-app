@@ -12,8 +12,6 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, problem: action.problem };
     case 'REMOVE_PROBLEM':
       return { ...state, problem: null };
-    case 'CHECK_SOLUTION':
-      return { ...state, solution: action.equal };
     default:
       return state;
   }

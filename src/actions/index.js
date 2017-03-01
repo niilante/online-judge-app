@@ -67,6 +67,8 @@ export function fetchProblem(id) {
       parsedProblem.id = id;
       parsedProblem.title = problem.title;
       parsedProblem.content = problem.content;
+      parsedProblem.test_output = problem.test_output;
+      parsedProblem.test_input = problem.test_input;
 
       dispatch(addProblem(parsedProblem));
     });
@@ -93,24 +95,54 @@ export function handleSolution(props) {
       'lang': "C",
       'time_limit': 5,
       'memory_limit': 262144,
+      'input': problem.test_input
     }
 
-    axios.post(RUN_URL, querystring.stringify(data))
+    return axios.post(RUN_URL, querystring.stringify(data))
       .then((res) => {
-        if (res.data.run_status.output === problem.test_output) {
-          return {
-            type: 'CHECK_SOLUTION',
-            equal: true
-          }
-        } else {
-          return {
-            type: 'CHECK_SOLUTION',
-            equal: false
-          }
-        }
+        // console.log(data.input,res.data.run_status.output.trim(), problem.test_output.trim());
+        var status = {
+          problemId: problemId,
+          status: res.data.run_status.output.trim() === problem.test_output.trim()
+        };
+        var statusRef = firebaseRef.child('status').push(status);
+
+        return statusRef.then(() => {
+          dispatch(addStatus({
+            ...status,
+            statusId: statusRef.key
+          }));
+        });
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+}
+
+export function addStatus(status) {
+  return {
+    type: 'ADD_STATUS',
+    status
+  }
+}
+
+export function fetchStatus () {
+  return (dispatch, getState) => {
+    var statusRef = firebaseRef.child('status');
+
+    return statusRef.once('value').then((snapshot) => {
+      var status = snapshot.val() || {};
+      var parsedStatus = [];
+
+      Object.keys(status).forEach((statusId) => {
+        parsedStatus.push({
+          id: statusId,
+          ...status[statusId]
+        });
+      });
+
+      dispatch(addStatus(parsedStatus));
+    });
   }
 }

@@ -1,15 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { handleSolution, fetchProblem } from './../actions/index';
 
 class ProblemsSubmit extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   componentWillMount() {
     this.props.fetchProblem(this.props.params.id);
   }
 
   submitSolution(props) {
     props.problemId = this.props.params.id;
-    this.props.handleSolution(props);
+    this.props.handleSolution(props)
+      .then(() => {
+        this.context.router.push('/status');        
+      })
   }
 
   render() {

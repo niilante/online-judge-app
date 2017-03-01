@@ -6,6 +6,7 @@ import Problems from './components/problems';
 import Ranking from './components/ranking';
 import About from './components/about';
 import Welcome from './components/welcome';
+import Status from './components/problems_status';
 import ProblemsNew from './components/problems_new';
 import ProblemsShow from './components/problems_show';
 import ProblemsSubmit from './components/problems_submit';
@@ -15,6 +16,7 @@ export default (
     <IndexRoute component={Welcome} />
     <Route path="problems" component={Problems} />
     <Route path="ranking" component={Ranking} />
+    <Route path="status" component={Status} />
     <Route path="about" component={About} />
     <Route path="problems/new" component={ProblemsNew} />
     <Route path="problems/:id" component={ProblemsShow} />
