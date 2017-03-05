@@ -1,7 +1,28 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { createProblem } from '../actions/index';
 import { Link } from 'react-router';
+
+export const renderInputField = ({ input, label, type, meta: {touched, error, warning} }) => (
+  <div className={`form-group ${touched && error ? 'has-danger' : ''}`}>
+    <label>{label}</label>
+    <input type={type} {...input} placeholder={label} className="form-control" />
+    <div className="text-help">
+      {touched ? error : ''}
+    </div>
+  </div>
+)
+
+export const renderTextareaField = ({ input, label, type, meta: {touched, error, warning} }) => (
+  <div className={`form-group ${touched && error ? 'has-danger' : ''}`}>
+    <label>{label}</label>
+    <textarea type={type} {...input} placeholder={label} className="form-control" />
+    <div className="text-help">
+      {touched ? error : ''}
+    </div>
+  </div>
+)
 
 class ProblemsNew extends Component {
   static contextTypes = {
@@ -17,43 +38,16 @@ class ProblemsNew extends Component {
   }
 
   render() {
-    const { fields: { title, content, test_input, test_output }, handleSubmit } = this.props;
+    const { handleSubmit, pristine, reset, submitting, createProblem } = this.props;
 
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <h3>Create A New Problem</h3>
 
-        <div className={`form-group ${title.touched && title.invalid ? 'has-danger' : ''}`}>
-          <label>Title</label>
-          <input type="text" className="form-control" {...title} />
-          <div className="text-help">
-            {title.touched ? title.error: ''}
-          </div>
-        </div>
-
-        <div className={`form-group ${content.touched && content.invalid ? 'has-danger' : ''}`}>
-          <label>Content</label>
-          <textarea type="text" className="form-control" {...content} />
-          <div className="text-help">
-            {content.touched ? content.error : ''}
-          </div>
-        </div>
-
-        <div className={`form-group ${test_input.touched && test_input.invalid ? 'has-danger' : ''}`}>
-          <label>Input value</label>
-          <input type="text" className="form-control" {...test_input} />
-          <div className="text-help">
-            {test_input.touched ? test_input.error : ''}
-          </div>
-        </div>
-
-        <div className={`form-group ${test_output.touched && test_output.invalid ? 'has-danger' : ''}`}>
-          <label>Output value</label>
-          <input type="text" className="form-control" {...test_output} />
-          <div className="text-help">
-            {test_output.touched ? test_output.error : ''}
-          </div>
-        </div>
+        <Field name="title" type="text" component={renderInputField} label="Title" />
+        <Field name="content" type="text" component={renderTextareaField} label="Content" />
+        <Field name="test_input" type="text" component={renderInputField} label="Test Input" />
+        <Field name="test_output" type="text" component={renderInputField} label="Test Output" />
 
         <button type="submit" className="btn btn-primary btn-submit">Submit</button>
         <Link to="/problems" className="btn btn-danger">Cancel</Link>
@@ -62,7 +56,7 @@ class ProblemsNew extends Component {
   }
 }
 
-function validate(values) {
+const validate = (values) => {
   const errors = {};
 
   if (!values.title) {
@@ -73,19 +67,17 @@ function validate(values) {
     errors.content = 'Enter content';
   }
 
-  if (!values.test_input) {
-    errors.test_input = 'Enter test input';
-  }
-
-  if (!values.test_output) {
-    errors.test_output = 'Enter test output';
-  }
-
   return errors;
 }
 
-export default reduxForm({
+ProblemsNew = reduxForm({
   form: 'ProblemsNewForm',
-  fields: [ 'title', 'content', 'test_input', 'test_output' ],
   validate
-}, null, { createProblem })(ProblemsNew);
+})(ProblemsNew);
+
+ProblemsNew = connect(
+  null,
+  { createProblem }
+)(ProblemsNew);
+
+export default ProblemsNew;

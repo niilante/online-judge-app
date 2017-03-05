@@ -1,6 +1,17 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { handleSolution, fetchProblem } from './../actions/index';
+
+const renderTextareaField = ({ input, label, type, meta: {touched, error, warning} }) => (
+  <div className={`form-group ${touched && error ? 'has-danger' : ''}`}>
+    <label>{label}</label>
+    <textarea type={type} {...input} placeholder={label} className="form-control" />
+    <div className="text-help">
+      {touched ? error : ''}
+    </div>
+  </div>
+)
 
 class ProblemsSubmit extends Component {
   static contextTypes = {
@@ -9,6 +20,7 @@ class ProblemsSubmit extends Component {
 
   componentWillMount() {
     this.props.fetchProblem(this.props.params.id);
+    console.log('fetch success');
   }
 
   submitSolution(props) {
@@ -20,20 +32,19 @@ class ProblemsSubmit extends Component {
   }
 
   render() {
-    if (!this.props.problem) {
+    const { handleSubmit, fetchProblem, handleSolution, pristine, reset, submitting, problem } = this.props;
+    
+    if (!problem) {
       return (
         <p>Loading</p>
       )
     }
 
-    const { fields: { sourceInput }, handleSubmit, problem: { title } } = this.props;
-
     return (
       <form onSubmit={handleSubmit(this.submitSolution.bind(this))}>
-        <h3>Submit A Solution For {title}</h3>
-        <div className="form-group">
-          <textarea type="text" className="form-control" {...sourceInput} />
-        </div>
+        <h3>Submit A Solution For {problem.title}</h3>
+
+        <Field name="sourceInput" type="text" component={renderTextareaField} label="Your source" />
 
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
@@ -41,11 +52,26 @@ class ProblemsSubmit extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { problem: state.problems.problem };
+const validate = (values) => {
+  const errors = {};
+
+  if (!values.sourceInput) {
+    errors.sourceInput = 'Enter your solution';
+  }
+
+  return errors;
 }
 
-export default reduxForm({
+ProblemsSubmit = connect(
+  state => ({
+    problem: state.problems.problem
+  }),
+  { handleSolution, fetchProblem }
+)(ProblemsSubmit);
+
+ProblemsSubmit = reduxForm({
   form: 'SubmitSolutionForm',
-  fields: [ 'sourceInput' ]
-}, mapStateToProps, { handleSolution, fetchProblem })(ProblemsSubmit);
+  validate
+})(ProblemsSubmit);
+
+export default ProblemsSubmit;
