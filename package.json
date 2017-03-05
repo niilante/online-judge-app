@@ -30,6 +30,7 @@
     "babel-polyfill": "^6.23.0",
     "babel-preset-stage-1": "^6.1.18",
     "cls-bluebird": "^2.0.1",
+    "eslint": "^3.17.0",
     "firebase": "3.0.2",
     "fs": "^0.0.1-security",
     "hackerearth-node": "^2.3.9",
