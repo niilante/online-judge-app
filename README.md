@@ -1,25 +1,16 @@
-# ReduxSimpleStarter
+# Online Judge Application
 
-Interested in learning [Redux](https://www.udemy.com/react-redux/)?
+Learn programming, practice algorithms and take the challenge.
 
-###Getting Started###
+###Installation###
 
-There are two methods for getting started with this repo.
-
-####Familiar with Git?#####
-Checkout this repo, install dependencies, then start the gulp process with the following:
+This project made with React, Redux and Firebase.
 
 ```
-	> git clone git@github.com:StephenGrider/ReduxSimpleStarter.git
-	> cd ReduxSimpleStarter
+	> git clone git@github.com:bkdev98/online-judge-app.git
+	> cd online-judge-app
 	> npm install
 	> npm start
 ```
 
-####Not Familiar with Git?#####
-Click [here](https://github.com/StephenGrider/ReactStarter/releases) then download the .zip file.  Extract the contents of the zip file, then open your terminal, change to the project directory, and:
-
-```
-	> npm install
-	> npm start
-```
+Created with love by Quoc Khanh
