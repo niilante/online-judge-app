@@ -13,11 +13,20 @@ export function createProblem(props) {
   return (dispatch, getState) => {
     var problem = {
       title: props.title,
-      content: props.content,
-      test_input: props.test_input,
-      test_output: props.test_output
+      content: props.content
     };
     var problemRef = firebaseRef.child('problems').push(problem);
+
+    problem.tests = [];
+
+    props.tests.map((test) => {
+      var testCase = {
+        test_input: test.test_input,
+        test_output: test.test_output
+      };
+      problem.tests.push(testCase);
+      var problemTestRef = firebaseRef.child(`problems/${problemRef.key}/tests`).push(testCase);
+    });
 
     return problemRef.then(() => {
       dispatch(addProblem({
@@ -67,8 +76,14 @@ export function fetchProblem(id) {
       parsedProblem.id = id;
       parsedProblem.title = problem.title;
       parsedProblem.content = problem.content;
-      parsedProblem.test_output = problem.test_output;
-      parsedProblem.test_input = problem.test_input;
+      parsedProblem.tests = [];
+
+      Object.keys(problem.tests).forEach((testId) => {
+        parsedProblem.tests.push({
+          id: testId,
+          ...problem.tests[testId]
+        });
+      });
 
       dispatch(addProblem(parsedProblem));
     });
@@ -84,39 +99,66 @@ export var removeProblem = () => {
 export function handleSolution(props) {
   return (dispatch, getState) => {
     const { sourceInput, problemId } = props;
-    const { problem } = getState().problems;
+    const { tests } = getState().problems.problem;
     const RUN_URL = 'https://api.hackerearth.com/v3/code/run/';
     const CLIENT_SECRET = 'd0955b2b668249b62099b6e76833a8d36be8a24a';
 
-    const data = {
-      'client_secret': CLIENT_SECRET,
-      'async': 0,
-      'source': sourceInput,
-      'lang': "C",
-      'time_limit': 5,
-      'memory_limit': 262144,
-      'input': problem.test_input
-    }
+    var scoreIndex = 0;
+    var isTrue = true;
 
-    return axios.post(RUN_URL, querystring.stringify(data))
-      .then((res) => {
-        // console.log(data.input,res.data.run_status.output.trim(), problem.test_output.trim());
-        var status = {
-          problemId: problemId,
-          status: res.data.run_status.output.trim() === problem.test_output.trim()
-        };
-        var statusRef = firebaseRef.child('status').push(status);
+    tests.map((test) => {
+      const data = {
+        'client_secret': CLIENT_SECRET,
+        'async': 0,
+        'source': sourceInput,
+        'lang': "C",
+        'time_limit': 5,
+        'memory_limit': 262144,
+        'input': test.test_input
+      }
 
-        return statusRef.then(() => {
-          dispatch(addStatus({
-            ...status,
-            statusId: statusRef.key
-          }));
+      return axios.post(RUN_URL, querystring.stringify(data))
+        .then((res) => {
+          console.log(res.data.run_status.output.trim(), test.test_output.trim());
+          
+          if ((res.data.run_status.output.trim() === test.test_output.trim()) && isTrue) {
+            scoreIndex = scoreIndex + 1;
+          } else {
+            isTrue = false;
+          }
+ 
+          var status = {
+            problemId: problemId,
+            status: isTrue,
+            score: scoreIndex
+          }
+
+          if (tests[tests.length-1].id === test.id) {
+            var statusRef = firebaseRef.child('status').push(status);
+
+            return statusRef.then(() => {
+              dispatch(addStatus({
+                ...status,
+                statusId: statusRef.key
+              }));
+            });
+          }
+
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    });
+
+    var statusRef = firebaseRef.child('status').push(status);
+
+    return statusRef.then(() => {
+      dispatch(addStatus({
+        ...status,
+        statusId: statusRef.key
+      }));
+    });
+
   }
 }
 

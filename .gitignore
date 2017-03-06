@@ -6,3 +6,5 @@ yarn-error.log
 # IntelliJ
 *.iml
 /.idea
+source.c
+a.out

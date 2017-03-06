@@ -194,3 +194,13 @@ p {
 .btn-submit {
   margin-right: 20px;
 }
+
+.test-case-title {
+  display: inline;
+  color: #fff;
+  padding-right: 10px;
+}
+
+.test-case-item {
+  padding-top: 10px;
+}
