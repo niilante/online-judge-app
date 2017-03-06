@@ -150,15 +150,16 @@ export function handleSolution(props) {
         });
     });
 
-    var statusRef = firebaseRef.child('status').push(status);
+    // setTimeout(() => {
+    //   var statusRef = firebaseRef.child('status').push(status);
 
-    return statusRef.then(() => {
-      dispatch(addStatus({
-        ...status,
-        statusId: statusRef.key
-      }));
-    });
-
+    //   return statusRef.then(() => {
+    //     dispatch(addStatus({
+    //       ...status,
+    //       statusId: statusRef.key
+    //     }));
+    //   });
+    // }, 5000);
   }
 }
 

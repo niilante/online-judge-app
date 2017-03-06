@@ -1,6 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+<<<<<<< HEAD
 import { Field, FieldArray, reduxForm } from 'redux-form';
+=======
+import { Field, reduxForm } from 'redux-form';
+>>>>>>> d637b7e7faa5b561d75c12ba1f2e2e8f2c64d078
 import { createProblem } from '../actions/index';
 import { Link } from 'react-router';
 
@@ -14,7 +18,11 @@ export const renderInputField = ({ input, label, type, meta: {touched, error, wa
   </div>
 )
 
+<<<<<<< HEAD
 export const renderTextareaField = ({ input, label, type, meta: { touched, error, warning } }) => (
+=======
+export const renderTextareaField = ({ input, label, type, meta: {touched, error, warning} }) => (
+>>>>>>> d637b7e7faa5b561d75c12ba1f2e2e8f2c64d078
   <div className={`form-group ${touched && error ? 'has-danger' : ''}`}>
     <label>{label}</label>
     <textarea type={type} {...input} placeholder={label} className="form-control" />
@@ -24,6 +32,7 @@ export const renderTextareaField = ({ input, label, type, meta: { touched, error
   </div>
 )
 
+<<<<<<< HEAD
 export const renderTestsField = ({ fields, meta: { touched, error } }) => (
   <ul>
     <li>
@@ -53,6 +62,8 @@ export const renderTestsField = ({ fields, meta: { touched, error } }) => (
   </ul>
 )
 
+=======
+>>>>>>> d637b7e7faa5b561d75c12ba1f2e2e8f2c64d078
 class ProblemsNew extends Component {
   static contextTypes = {
     router: PropTypes.object
@@ -76,10 +87,17 @@ class ProblemsNew extends Component {
 
         <Field name="title" type="text" component={renderInputField} label="Title" />
         <Field name="content" type="text" component={renderTextareaField} label="Content" />
+<<<<<<< HEAD
 
         <FieldArray name="tests" component={renderTestsField}/>
 
         <button type="submit" disabled={submitting} className="btn btn-primary btn-submit">Submit</button>
+=======
+        <Field name="test_input" type="text" component={renderInputField} label="Test Input" />
+        <Field name="test_output" type="text" component={renderInputField} label="Test Output" />
+
+        <button type="submit" className="btn btn-primary btn-submit">Submit</button>
+>>>>>>> d637b7e7faa5b561d75c12ba1f2e2e8f2c64d078
         <Link to="/problems" className="btn btn-danger">Cancel</Link>
       </form>
     )
@@ -97,6 +115,7 @@ const validate = (values) => {
     errors.content = 'Enter content';
   }
 
+<<<<<<< HEAD
   if (!values.tests || !values.tests.length) {
     errors.tests = { _error: 'At least one test case must be entered' }
   } else {
@@ -117,6 +136,8 @@ const validate = (values) => {
     };
   }
 
+=======
+>>>>>>> d637b7e7faa5b561d75c12ba1f2e2e8f2c64d078
   return errors;
 }
 

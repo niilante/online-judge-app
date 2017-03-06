@@ -20,6 +20,7 @@ class ProblemsSubmit extends Component {
 
   componentWillMount() {
     this.props.fetchProblem(this.props.params.id);
+    console.log('fetch success');
   }
 
   submitSolution(props) {
@@ -41,7 +42,13 @@ class ProblemsSubmit extends Component {
 
     return (
       <form onSubmit={handleSubmit(this.submitSolution.bind(this))}>
+<<<<<<< HEAD
         <h3>Submit a solution for "{problem.title}"</h3>
+=======
+        <h3>Submit A Solution For {problem.title}</h3>
+
+        <Field name="sourceInput" type="text" component={renderTextareaField} label="Your source" />
+>>>>>>> d637b7e7faa5b561d75c12ba1f2e2e8f2c64d078
 
         <Field name="sourceInput" type="text" component={renderTextareaField} label="Your source" />
 
